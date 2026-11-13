@@ -1,0 +1,940 @@
+/* ==========================================================
+   UKM Olahraga Futsal POLIJE - style.css
+   Mengikuti desain Figma (lebar 1280px, padding section 64px)
+   + penyesuaian responsif untuk tablet dan mobile.
+   ========================================================== */
+
+/* ---------- 1. Variabel ---------- */
+:root {
+  --navy: #050A30;
+  --yellow: #FFCC00;
+  --yellow-hover: #FFD94D;
+  --ink: #222222;
+  --gray: #555555;
+  --line: #D0D0D0;
+  --line-strong: #BDBDBD;
+  --soft: #F2F2F2;
+  --footer-bg: #222222;
+
+  /* Jarak kiri-kanan: 64px di 1280px, tetap terpusat (isi 1152px) di layar lebih lebar */
+  --pad-x: max(64px, calc((100% - 1152px) / 2));
+
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ---------- 2. Reset & dasar ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #FFFFFF;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+hr {
+  display: none; /* pemisah antar-section diganti border/warna section */
+}
+
+/* Fokus keyboard yang jelas */
+a:focus-visible {
+  outline: 3px solid #5B8DEF;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Teks hanya untuk pembaca layar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Tautan lompat: muncul saat difokuskan keyboard */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--yellow);
+  color: #000;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* "Kembali ke atas" tidak ada di desain Figma */
+.to-top {
+  display: none;
+}
+
+/* ---------- 3. Tombol ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #000;
+  background: var(--yellow);
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+
+.btn:hover {
+  background: var(--yellow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-outline {
+  background: #FFFFFF;
+}
+
+.btn-outline:hover {
+  background: var(--soft);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ---------- 4. Navbar ---------- */
+.site-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  height: 80px;
+  padding: 16px var(--pad-x);
+  background: #FFFFFF;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.site-header > p {
+  flex: none;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: none;
+  font-size: 18px;
+}
+
+.brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.brand strong {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding: 4px 0;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s ease;
+}
+
+.main-nav a:hover {
+  border-bottom-color: currentColor;
+}
+
+.main-nav a[aria-current="page"] {
+  font-weight: 700;
+}
+
+/* Navbar biru gelap (Beranda & Prestasi) */
+.site-header.is-dark {
+  background: var(--navy);
+  color: #FFFFFF;
+}
+
+.site-header.is-dark .btn {
+  border-color: #E6E6E6;
+}
+
+/* Navbar Beranda: lebih tinggi dengan logo lebih besar */
+.site-header.is-home {
+  height: 102px;
+  border-bottom-color: var(--navy);
+}
+
+.site-header.is-home .brand {
+  gap: 24px;
+}
+
+.site-header.is-home .brand img {
+  width: 70px;
+  height: 70px;
+}
+
+/* ---------- 5. Judul halaman (header biru) ---------- */
+.page-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 56px var(--pad-x);
+  color: #FFFFFF;
+  background: var(--navy);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero h1 {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.page-hero p {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* Navigasi lokal tidak ditampilkan di Figma */
+.page-hero nav {
+  display: none;
+}
+
+/* ---------- 6. Section umum ---------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+  padding: 64px var(--pad-x);
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--line);
+}
+
+.section > h2 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.section-soft {
+  background: var(--soft);
+}
+
+.section-dark {
+  background: var(--navy);
+  color: #FFFFFF;
+}
+
+.section-gradient {
+  background: linear-gradient(180deg, var(--navy) 0%, #FFFFFF 100%);
+  border-color: #FFFFFF;
+}
+
+/* ---------- 7. Beranda ---------- */
+.hero {
+  flex-direction: row;
+  align-items: center;
+  gap: 52px;
+  min-height: 575px;
+  border-bottom: 0;
+}
+
+.hero > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.12;
+  color: #000;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.hero figure {
+  flex: 0 0 49%;
+}
+
+.hero figure img {
+  width: 100%;
+  height: 361px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 1px solid var(--line-strong);
+}
+
+.about-home {
+  flex-direction: row;
+  align-items: center;
+  gap: 72px;
+  min-height: 448px;
+  color: #FFFFFF;
+}
+
+.about-home figure {
+  flex: 0 0 49%;
+}
+
+.about-home figure img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+}
+
+.about-home > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.about-home h2 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.about-home p {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.prestasi-home {
+  min-height: 314px;
+  border-color: var(--line);
+}
+
+.prestasi-home h2 {
+  color: #FFFFFF;
+}
+
+.prestasi-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px;
+  list-style: none;
+}
+
+.prestasi-list img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, .45);
+}
+
+.galeri-home {
+  min-height: 457px;
+}
+
+.cta {
+  align-items: center;
+  text-align: center;
+  min-height: 284px;
+  border-color: var(--line);
+}
+
+.cta h2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #FFFFFF;
+}
+
+.cta p {
+  font-size: 16px;
+}
+
+/* ---------- 8. Galeri & kartu ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  list-style: none;
+}
+
+.gallery img {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--line-strong);
+}
+
+.galeri-home .gallery img {
+  height: 180px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  list-style: none;
+}
+
+/* Kartu kegiatan */
+.card {
+  height: 100%;
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+  transform: translateY(-2px);
+}
+
+.card img {
+  width: 100%;
+  height: 432px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.card h3 {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.card p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+/* ---------- 9. Tentang Kami ---------- */
+.profil {
+  flex-direction: row;
+  align-items: center;
+  gap: 64px;
+}
+
+.profil > div {
+  flex: 1;
+}
+
+.profil h2 {
+  margin-bottom: 12px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.profil h3 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #333;
+}
+
+.profil p {
+  margin-bottom: 28px;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #333;
+}
+
+.profil p:last-child {
+  margin-bottom: 0;
+}
+
+.profil figure {
+  flex: 0 0 49%;
+}
+
+.profil figure img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 20px;
+  filter: grayscale(1);
+}
+
+.visimisi {
+  position: relative;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.panel {
+  padding: 28px;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
+}
+
+#visi {
+  flex: 1;
+}
+
+#misi {
+  flex: 1.65;
+}
+
+.panel h3 {
+  margin-bottom: 12px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.panel p,
+.panel li {
+  font-size: 16px;
+  line-height: 1.25;
+  color: #444;
+}
+
+.panel ol {
+  padding-left: 24px;
+}
+
+.struktur > p {
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.team figure {
+  padding: 20px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid var(--line-strong);
+}
+
+.team img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.team figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+.team figcaption strong {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---------- 10. Prestasi ---------- */
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 420px;
+  max-width: 100%;
+  list-style: none;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  background: #FFFFFF;
+  border: 1px solid var(--line-strong);
+  transition: box-shadow .2s ease;
+}
+
+.achievement:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+}
+
+.achievement figure {
+  flex: none;
+}
+
+.achievement img {
+  width: 120px;
+  height: 182px;
+  object-fit: cover;
+  border: 1px solid #333;
+}
+
+.achievement h3 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.achievement p {
+  margin-top: 4px;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+/* ---------- 11. Footer ---------- */
+.site-footer {
+  display: grid;
+  grid-template-columns: 50% 1fr auto;
+  grid-template-areas:
+    "brand menu contact"
+    "copy  copy copy";
+  row-gap: 32px;
+  padding: 48px var(--pad-x) 16px;
+  background: var(--footer-bg);
+  color: #FFFFFF;
+}
+
+.footer-brand {
+  grid-area: brand;
+}
+
+.footer-brand h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.footer-brand p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--line);
+}
+
+.footer-nav {
+  grid-area: menu;
+}
+
+.footer-nav ul {
+  list-style: none;
+}
+
+.footer-nav a,
+.footer-contact a {
+  color: #EDEDED;
+}
+
+.footer-nav a {
+  display: inline-block;
+  padding: 2px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-nav a:hover,
+.footer-contact a:hover {
+  color: var(--yellow);
+}
+
+.footer-nav a:focus-visible,
+.footer-contact a:focus-visible,
+.footer-brand a:focus-visible {
+  outline-color: var(--yellow);
+}
+
+.footer-contact {
+  grid-area: contact;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.footer-contact p {
+  margin-bottom: 8px;
+}
+
+.footer-copy {
+  grid-area: copy;
+  text-align: center;
+  font-size: 13px;
+  color: var(--line);
+}
+
+/* ---------- 12. Tablet (<= 1024px) ---------- */
+@media (max-width: 1024px) {
+  :root {
+    --pad-x: 32px;
+  }
+
+  .hero,
+  .about-home,
+  .profil {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+    min-height: 0;
+  }
+
+  .hero figure,
+  .about-home figure,
+  .profil figure {
+    flex: none;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+  }
+
+  .about-home h2 {
+    font-size: 40px;
+  }
+
+  .gallery,
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .prestasi-list {
+    gap: 24px;
+  }
+
+  .visimisi {
+    flex-direction: column;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "brand brand"
+      "menu  contact"
+      "copy  copy";
+  }
+}
+
+/* ---------- 13. Mobile (<= 640px) ---------- */
+@media (max-width: 640px) {
+  :root {
+    --pad-x: 20px;
+  }
+
+  .site-header,
+  .site-header.is-home {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 12px 16px;
+    padding-block: 12px;
+  }
+
+  .brand {
+    gap: 10px;
+    font-size: 15px;
+  }
+
+  .site-header.is-home .brand {
+    gap: 12px;
+  }
+
+  .site-header.is-home .brand img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .main-nav {
+    order: 3;
+    flex-basis: 100%;
+    overflow-x: auto;
+  }
+
+  .main-nav ul {
+    gap: 18px;
+    white-space: nowrap;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .page-hero {
+    padding-block: 36px;
+  }
+
+  .page-hero h1 {
+    font-size: 32px;
+  }
+
+  .page-hero p {
+    font-size: 16px;
+  }
+
+  .section {
+    padding-block: 40px;
+  }
+
+  .section > h2,
+  .profil h2 {
+    font-size: 26px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .hero p,
+  .about-home p {
+    font-size: 16px;
+  }
+
+  .hero figure img {
+    height: 240px;
+  }
+
+  .about-home h2 {
+    font-size: 32px;
+  }
+
+  .about-home figure img {
+    height: 220px;
+  }
+
+  .cta h2 {
+    font-size: 26px;
+  }
+
+  .prestasi-list {
+    grid-template-columns: 1fr;
+  }
+
+  .galeri-home .gallery img,
+  .gallery img {
+    height: 150px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card img {
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .team img {
+    height: 360px;
+  }
+
+  .profil figure img {
+    height: 240px;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  .achievement {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .achievement img {
+    width: 96px;
+    height: 146px;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "menu"
+      "contact"
+      "copy";
+    row-gap: 24px;
+  }
+}
+
+/* ---------- 14. Hormati preferensi gerak ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+  .btn:hover,
+  .card:hover {
+    transform: none;
+  }
+}
