@@ -1,0 +1,806 @@
+/* ==========================================================
+   TENTANG KAMI - tentang-kami.css
+   Dipakai oleh: tentang-kami.html
+   ----------------------------------------------------------
+   DAFTAR ISI
+   A. UMUM          : Variabel, Reset & Dasar, Aksesibilitas, Tombol,
+                      Navbar, Section, Footer, Preferensi Gerak,
+                      Judul Halaman
+   B. TENTANG KAMI  : 1. Profil UKM
+                      2. Visi dan Misi
+                      3. Struktur Pengurus
+   ----------------------------------------------------------
+   CATATAN:
+   - Bagian "UMUM" sama di keempat file CSS. Kalau diubah di sini,
+     ubah juga di beranda.css, kegiatan-galeri.css, prestasi.css.
+   - Bagian "TENTANG KAMI" hanya berlaku untuk tentang-kami.html.
+   - Ukuran mengikuti desain Figma (lebar 1280px). Aturan @media
+     di bawah tiap bagian = tampilan tablet (<= 1024px) dan
+     mobile (<= 640px).
+   ========================================================== */
+
+
+/* ==========================================================
+   >>> BAGIAN UMUM (SAMA DI KEEMPAT FILE CSS) <<<
+   Kalau ada yang diubah di bagian UMUM ini, ubah juga di
+   beranda.css, tentang-kami.css, kegiatan-galeri.css,
+   dan prestasi.css supaya tampilan semua halaman tetap seragam.
+   ========================================================== */
+
+
+/* ===== UMUM: Variabel ===== */
+
+/* Tempat menyimpan warna dan ukuran yang dipakai berulang.
+   Ganti nilainya di sini, seluruh halaman ikut berubah. */
+:root {
+  --navy: #050A30;          /* biru gelap: navbar, header halaman, section gelap */
+  --yellow: #FFCC00;        /* kuning: tombol utama */
+  --yellow-hover: #FFD94D;  /* kuning lebih terang saat tombol disentuh kursor */
+  --ink: #222222;           /* warna teks utama */
+  --gray: #555555;          /* warna teks pendukung (tanggal, keterangan) */
+  --line: #D0D0D0;          /* warna garis tipis pemisah section */
+  --line-strong: #BDBDBD;   /* warna garis bingkai kartu dan foto */
+  --soft: #F2F2F2;          /* abu-abu muda: latar section selang-seling */
+  --footer-bg: #222222;     /* warna latar footer */
+
+  /* Jarak kiri-kanan section: 64px di layar 1280px (sesuai Figma),
+     dan isi tetap di tengah (lebar 1152px) di layar yang lebih lebar */
+  --pad-x: max(64px, calc((100% - 1152px) / 2));
+
+  /* Jenis huruf: Inter, kalau gagal dimuat pakai huruf bawaan sistem */
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Tablet (lebar <= 1024px): jarak kiri-kanan dikecilkan jadi 32px */
+@media (max-width: 1024px) {
+  :root {
+    --pad-x: 32px;
+  }
+}
+
+/* Mobile (lebar <= 640px): jarak kiri-kanan dikecilkan lagi jadi 20px */
+@media (max-width: 640px) {
+  :root {
+    --pad-x: 20px;
+  }
+}
+
+
+/* ===== UMUM: Reset & Dasar ===== */
+
+/* Semua elemen: lebar/tinggi sudah termasuk padding dan border,
+   jadi ukuran lebih mudah dihitung */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Halaman: klik link "#bagian" meluncur halus, tidak melompat */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Isi halaman: huruf, ukuran, warna teks, dan latar dasar */
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #FFFFFF;
+}
+
+/* Semua gambar: tidak boleh melebihi lebar tempatnya, dan tampil sebagai blok */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Pembungkus gambar (figure): hapus jarak bawaan browser */
+figure {
+  margin: 0;
+}
+
+/* Daftar (ul/ol): hapus jarak bawaan browser */
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* Judul dan paragraf: hapus jarak bawaan, jarak diatur per bagian */
+h1, h2, h3, p {
+  margin: 0;
+}
+
+/* Link: ikut warna teks sekitarnya, tanpa garis bawah */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Garis <hr> di HTML disembunyikan, karena pemisah section sudah diatur lewat warna/garis */
+hr {
+  display: none;
+}
+
+
+/* ===== UMUM: Aksesibilitas ===== */
+
+/* Bingkai biru saat link dipilih lewat keyboard (tombol Tab) */
+a:focus-visible {
+  outline: 3px solid #5B8DEF;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Teks yang tidak terlihat di layar tapi tetap dibaca pembaca layar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Link "Lompat ke konten utama": tersembunyi di atas layar */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;           /* di luar layar sampai difokuskan */
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--yellow);
+  color: #000;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+/* Saat skip-link dipilih lewat keyboard: muncul di pojok kiri atas */
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Link "Kembali ke atas" di HTML: disembunyikan karena tidak ada di desain Figma.
+   Hapus aturan ini kalau ingin menampilkannya lagi. */
+.to-top {
+  display: none;
+}
+
+
+/* ===== UMUM: Tombol ===== */
+
+/* Tombol kuning utama (Gabung, Gabung Sekarang, Selengkapnya, Hubungi Kami) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;           /* ruang dalam tombol */
+  font-size: 15px;              /* ukuran tulisan tombol */
+  font-weight: 600;
+  line-height: 1.2;
+  color: #000;
+  background: var(--yellow);    /* warna latar tombol */
+  border: 2px solid var(--navy);
+  border-radius: 10px;          /* sudut melengkung */
+  transition: background-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+
+/* Efek saat kursor di atas tombol: warna lebih terang, sedikit naik, ada bayangan */
+.btn:hover {
+  background: var(--yellow-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
+}
+
+/* Efek saat tombol ditekan: kembali ke posisi semula */
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Di mobile: tombol dibuat sedikit lebih kecil */
+@media (max-width: 640px) {
+  .btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}
+
+
+/* ===== UMUM: Navbar ===== */
+
+/* Bar navigasi paling atas: logo di kiri, menu di tengah, tombol Gabung di kanan */
+.site-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;   /* logo, menu, tombol tersebar rata */
+  align-items: center;              /* semua sejajar vertikal */
+  gap: 24px;
+  height: 80px;                     /* tinggi navbar sesuai Figma */
+  padding: 16px var(--pad-x);
+  background: #FFFFFF;              /* navbar putih (Tentang Kami, Kegiatan) */
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+/* Pembungkus tombol Gabung di navbar: tidak ikut mengecil */
+.site-header > p {
+  flex: none;
+}
+
+/* Logo + nama UKM di kiri navbar */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;                        /* jarak logo ke tulisan */
+  flex: none;
+  font-size: 18px;
+}
+
+/* Gambar logo di navbar */
+.brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;              /* logo utuh, tidak terpotong */
+}
+
+/* Tulisan nama UKM di navbar */
+.brand strong {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Daftar menu (Beranda, Tentang Kami, Kegiatan, Prestasi): berjajar ke samping */
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 24px;                        /* jarak antar menu */
+  list-style: none;
+}
+
+/* Tiap link menu */
+.main-nav a {
+  display: inline-block;
+  padding: 4px 0;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s ease;
+}
+
+/* Efek saat kursor di atas menu: muncul garis bawah */
+.main-nav a:hover {
+  border-bottom-color: currentColor;
+}
+
+/* Menu halaman yang sedang dibuka: ditebalkan */
+.main-nav a[aria-current="page"] {
+  font-weight: 700;
+}
+
+/* Navbar biru gelap (dipakai di Beranda dan Prestasi): tulisan jadi putih */
+.site-header.is-dark {
+  background: var(--navy);
+  color: #FFFFFF;
+}
+
+/* Tombol Gabung di navbar gelap: bingkai abu terang agar terlihat */
+.site-header.is-dark .btn {
+  border-color: #E6E6E6;
+}
+
+/* Navbar khusus Beranda: lebih tinggi karena logonya lebih besar (sesuai Figma) */
+.site-header.is-home {
+  height: 102px;
+  border-bottom-color: var(--navy);
+}
+
+/* Jarak logo ke tulisan di navbar Beranda */
+.site-header.is-home .brand {
+  gap: 24px;
+}
+
+/* Logo di navbar Beranda: ukuran lebih besar */
+.site-header.is-home .brand img {
+  width: 70px;
+  height: 70px;
+}
+
+/* Mobile: navbar boleh turun baris, menu pindah ke baris sendiri dan bisa digeser */
+@media (max-width: 640px) {
+  /* Navbar: tinggi mengikuti isi, elemen boleh turun baris */
+  .site-header,
+  .site-header.is-home {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 12px 16px;
+    padding-block: 12px;
+  }
+
+  /* Nama UKM: huruf lebih kecil */
+  .brand {
+    gap: 10px;
+    font-size: 15px;
+  }
+
+  /* Jarak logo ke tulisan di Beranda: dirapatkan */
+  .site-header.is-home .brand {
+    gap: 12px;
+  }
+
+  /* Logo Beranda: dikecilkan */
+  .site-header.is-home .brand img {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Menu: pindah ke baris sendiri dan bisa digeser ke samping kalau tidak muat */
+  .main-nav {
+    order: 3;
+    flex-basis: 100%;
+    overflow-x: auto;
+  }
+
+  /* Daftar menu: jarak dirapatkan, tidak turun baris */
+  .main-nav ul {
+    gap: 18px;
+    white-space: nowrap;
+  }
+}
+
+
+/* ===== UMUM: Section (kerangka tiap bagian halaman) ===== */
+
+/* Kerangka dasar setiap bagian halaman: isi tersusun ke bawah dengan jarak 24px */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;                          /* jarak antar isi section */
+  padding: 64px var(--pad-x);         /* ruang atas-bawah 64px, kiri-kanan ikut --pad-x */
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Judul tiap section (Kegiatan, Galeri, Prestasi, dst.) */
+.section > h2 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Mobile: ruang atas-bawah dan judul section dikecilkan */
+@media (max-width: 640px) {
+  .section {
+    padding-block: 40px;
+  }
+
+  .section > h2 {
+    font-size: 26px;
+  }
+}
+
+
+/* ===== UMUM: Footer ===== */
+
+/* Footer gelap: tiga kolom (nama UKM, menu, kontak) dan baris hak cipta di bawahnya */
+.site-footer {
+  display: grid;
+  grid-template-columns: 50% 1fr auto;   /* kolom menu mulai di tengah halaman (sesuai Figma) */
+  grid-template-areas:
+    "brand menu contact"
+    "copy  copy copy";
+  row-gap: 32px;
+  padding: 48px var(--pad-x) 16px;
+  background: var(--footer-bg);
+  color: #FFFFFF;
+}
+
+/* Kolom kiri: nama dan slogan UKM */
+.footer-brand {
+  grid-area: brand;
+}
+
+/* Nama UKM di footer */
+.footer-brand h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Slogan di bawah nama UKM */
+.footer-brand p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--line);
+}
+
+/* Kolom tengah: daftar menu footer */
+.footer-nav {
+  grid-area: menu;
+}
+
+/* Daftar menu footer: tanpa titik */
+.footer-nav ul {
+  list-style: none;
+}
+
+/* Warna link di footer: putih keabu-abuan */
+.footer-nav a,
+.footer-contact a {
+  color: #EDEDED;
+}
+
+/* Tiap link menu footer */
+.footer-nav a {
+  display: inline-block;
+  padding: 2px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Efek saat kursor di atas link footer: berubah kuning */
+.footer-nav a:hover,
+.footer-contact a:hover {
+  color: var(--yellow);
+}
+
+/* Bingkai saat link footer dipilih lewat keyboard: kuning agar terlihat di latar gelap */
+.footer-nav a:focus-visible,
+.footer-contact a:focus-visible,
+.footer-brand a:focus-visible {
+  outline-color: var(--yellow);
+}
+
+/* Kolom kanan: email, nomor kontak, Instagram */
+.footer-contact {
+  grid-area: contact;
+  font-style: normal;     /* hapus huruf miring bawaan <address> */
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+/* Tiap blok kontak (Email, Kontak, Instagram) */
+.footer-contact p {
+  margin-bottom: 8px;
+}
+
+/* Baris hak cipta di bagian paling bawah footer */
+.footer-copy {
+  grid-area: copy;
+  text-align: center;
+  font-size: 13px;
+  color: var(--line);
+}
+
+/* Tablet: nama UKM di atas, menu dan kontak berdampingan di bawahnya */
+@media (max-width: 1024px) {
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "brand brand"
+      "menu  contact"
+      "copy  copy";
+  }
+}
+
+/* Mobile: semua bagian footer bertumpuk satu kolom */
+@media (max-width: 640px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "menu"
+      "contact"
+      "copy";
+    row-gap: 24px;
+  }
+}
+
+
+/* ===== UMUM: Preferensi Gerak ===== */
+
+/* Untuk pengguna yang mematikan animasi di perangkatnya:
+   matikan animasi halus dan efek tombol naik */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}
+
+
+/* ===== UMUM: Judul Halaman (header biru di bawah navbar) ===== */
+/* Bagian ini sama di Tentang Kami, Kegiatan & Galeri, dan Prestasi.
+   Beranda tidak memakainya. */
+
+/* Blok biru gelap berisi judul besar dan kalimat singkat halaman */
+.page-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;                       /* jarak judul ke kalimat di bawahnya */
+  padding: 56px var(--pad-x);      /* ruang atas-bawah sesuai Figma */
+  color: #FFFFFF;
+  background: var(--navy);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Judul besar halaman (contoh: "Prestasi") */
+.page-hero h1 {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* Kalimat singkat di bawah judul halaman */
+.page-hero p {
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* Menu lokal di dalam header halaman: disembunyikan karena tidak ada di Figma */
+.page-hero nav {
+  display: none;
+}
+
+/* Mobile: header halaman dibuat lebih ramping */
+@media (max-width: 640px) {
+  /* Ruang atas-bawah dikecilkan */
+  .page-hero {
+    padding-block: 36px;
+  }
+
+  /* Judul halaman dikecilkan */
+  .page-hero h1 {
+    font-size: 32px;
+  }
+
+  /* Kalimat singkat dikecilkan */
+  .page-hero p {
+    font-size: 16px;
+  }
+}
+
+
+/* ==========================================================
+   >>> BAGIAN KHUSUS TENTANG KAMI <<<
+   ========================================================== */
+
+
+/* ===== TENTANG KAMI: 1. Profil UKM ===== */
+
+/* Section Profil: teks di kiri, foto tim di kanan */
+.profil {
+  flex-direction: row;
+  align-items: center;
+  gap: 64px;                      /* jarak teks ke foto */
+}
+
+/* Kolom teks profil */
+.profil > div {
+  flex: 1;
+}
+
+/* Judul "Profil UKM" */
+.profil h2 {
+  margin-bottom: 12px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* Subjudul "Tujuan" dan "Nilai-Nilai": tampil seperti teks biasa (sesuai Figma) */
+.profil h3 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #333;
+}
+
+/* Paragraf profil; jarak bawah memisahkan "Tujuan" dan "Nilai-Nilai" */
+.profil p {
+  margin-bottom: 28px;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #333;
+}
+
+/* Paragraf terakhir: tanpa jarak bawah */
+.profil p:last-child {
+  margin-bottom: 0;
+}
+
+/* Pembungkus foto tim: lebarnya sekitar setengah halaman */
+.profil figure {
+  flex: 0 0 49%;
+}
+
+/* Foto tim di kanan: dibuat hitam-putih sesuai Figma */
+.profil figure img {
+  width: 100%;
+  height: 320px;                  /* tinggi foto sesuai Figma */
+  object-fit: cover;
+  border-radius: 20px;
+  filter: grayscale(1);           /* hapus baris ini untuk foto berwarna */
+}
+
+/* Tablet: teks dan foto bertumpuk */
+@media (max-width: 1024px) {
+  /* Section jadi satu kolom */
+  .profil {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  /* Foto mengikuti lebar layar */
+  .profil figure {
+    flex: none;
+  }
+}
+
+/* Mobile: judul dan foto dikecilkan */
+@media (max-width: 640px) {
+  /* Judul "Profil UKM" */
+  .profil h2 {
+    font-size: 26px;
+  }
+
+  /* Tinggi foto tim */
+  .profil figure img {
+    height: 240px;
+  }
+}
+
+
+/* ===== TENTANG KAMI: 2. Visi dan Misi ===== */
+
+/* Section Visi dan Misi: latar gradasi biru gelap ke putih */
+.section-gradient {
+  background: linear-gradient(180deg, var(--navy) 0%, #FFFFFF 100%);
+  border-color: #FFFFFF;
+}
+
+/* Pembungkus dua kartu: kartu Visi dan Misi berdampingan */
+.visimisi {
+  position: relative;
+  flex-direction: row;
+  align-items: stretch;           /* kedua kartu sama tinggi */
+}
+
+/* Kartu putih (dipakai Visi dan Misi) */
+.panel {
+  padding: 28px;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .08);
+}
+
+/* Kartu Visi: lebih sempit */
+#visi {
+  flex: 1;
+}
+
+/* Kartu Misi: lebih lebar (1,65 kali kartu Visi) */
+#misi {
+  flex: 1.65;
+}
+
+/* Judul kartu ("Visi" dan "Misi") */
+.panel h3 {
+  margin-bottom: 12px;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Isi kartu: paragraf Visi dan butir-butir Misi */
+.panel p,
+.panel li {
+  font-size: 16px;
+  line-height: 1.25;
+  color: #444;
+}
+
+/* Daftar bernomor Misi: ada ruang di kiri untuk angka */
+.panel ol {
+  padding-left: 24px;
+}
+
+/* Tablet: kartu Visi dan Misi bertumpuk */
+@media (max-width: 1024px) {
+  .visimisi {
+    flex-direction: column;
+  }
+}
+
+/* Mobile: ruang dalam kartu dikecilkan */
+@media (max-width: 640px) {
+  .panel {
+    padding: 20px;
+  }
+}
+
+
+/* ===== TENTANG KAMI: 3. Struktur Pengurus ===== */
+
+/* Kalimat "Periode 2026/2027" di bawah judul */
+.struktur > p {
+  font-size: 16px;
+  color: var(--gray);
+}
+
+/* Deretan kartu pengurus: 3 kolom (sesuai Figma, saat ini terisi 2 orang) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;                      /* jarak antar kartu */
+  list-style: none;
+}
+
+/* Kartu satu pengurus: foto di atas, nama dan jabatan di bawah */
+.team figure {
+  padding: 20px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid var(--line-strong);
+}
+
+/* Foto pengurus */
+.team img {
+  width: 100%;
+  height: 420px;                  /* tinggi foto pengurus */
+  object-fit: cover;              /* foto dipotong rapi, tidak gepeng */
+  border-radius: 20px;
+}
+
+/* Teks di bawah foto (nama dan jabatan) */
+.team figcaption {
+  margin-top: 12px;
+  font-size: 14px;                /* ukuran jabatan */
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* Nama pengurus */
+.team figcaption strong {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Tablet: kartu pengurus jadi 2 kolom */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: kartu pengurus jadi 1 kolom, foto sedikit lebih pendek */
+@media (max-width: 640px) {
+  /* Satu kartu per baris */
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tinggi foto pengurus */
+  .team img {
+    height: 360px;
+  }
+}
