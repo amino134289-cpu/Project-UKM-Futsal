@@ -287,12 +287,12 @@ a:focus-visible {
 /* Navbar biru gelap (dipakai di Beranda dan Prestasi): tulisan jadi putih */
 .site-header.is-dark {
   background: var(--navy);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 /* Tombol Gabung di navbar gelap: bingkai abu terang agar terlihat */
 .site-header.is-dark .btn {
-  border-color: #E6E6E6;
+  border-color: #ffffff;
 }
 
 /* Navbar khusus Beranda: lebih tinggi karena logonya lebih besar (sesuai Figma) */
@@ -908,4 +908,17 @@ a:focus-visible {
   .cta h2 {
     font-size: 26px;
   }
+}
+
+/* Tata letak di footer */
+.footer-logo {
+  display: flex;
+  gap: 12px; /* Jarak antar gambar */
+  margin-top: 16px; /* Jarak dari teks motto ke gambar */
+  align-items: center;
+}
+
+.footer-logos img {
+  height: 45px; /* Sesuaikan tinggi gambar agar seragam */
+  width: auto;
 }
