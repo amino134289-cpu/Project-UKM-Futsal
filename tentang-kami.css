@@ -804,3 +804,15 @@ a:focus-visible {
     height: 360px;
   }
 }
+/* Tata letak di footer */
+.footer-logo {
+  display: flex;
+  gap: 12px; /* Jarak antar gambar */
+  margin-top: 16px; /* Jarak dari teks motto ke gambar */
+  align-items: center;
+}
+
+.footer-logos img {
+  height: 45px; /* Sesuaikan tinggi gambar agar seragam */
+  width: auto;
+}
