@@ -709,3 +709,96 @@ a:focus-visible {
   height: 45px; /* Sesuaikan tinggi gambar agar seragam */
   width: auto;
 }
+
+
+/* ==========================================================
+   PENYESUAIAN BOOTSTRAP NAVBAR (ditambahkan di akhir file)
+   Dimuat setelah Bootstrap, jadi aturan di sini menang.
+   Bagian ini SAMA di keempat file CSS (kecuali catatan .card).
+   ========================================================== */
+
+/* Navbar: tinggi mengikuti isi (hamburger bisa membuka ke bawah),
+   padding kiri-kanan tetap memakai --pad-x milik Anda.
+   Warna default = navbar putih (teks gelap). */
+.site-header.navbar {
+  height: auto;
+  min-height: 80px;
+  flex-wrap: wrap;
+  row-gap: 0;
+  --bs-navbar-color: var(--ink);
+  --bs-navbar-hover-color: var(--navy);
+  --bs-navbar-active-color: var(--ink);
+  --bs-navbar-brand-color: var(--ink);
+  --bs-navbar-brand-hover-color: var(--ink);
+}
+
+/* Navbar gelap (Beranda, Prestasi): teks putih, hover kuning */
+.site-header.is-dark.navbar {
+  --bs-navbar-color: #ffffff;
+  --bs-navbar-hover-color: var(--yellow);
+  --bs-navbar-active-color: #ffffff;
+  --bs-navbar-brand-color: #ffffff;
+  --bs-navbar-brand-hover-color: #ffffff;
+}
+
+.site-header.is-home.navbar {
+  min-height: 102px;
+}
+
+/* Brand: hapus margin/padding bawaan Bootstrap */
+.site-header .navbar-brand {
+  margin-right: 0;
+  padding: 0;
+}
+
+/* Link menu: tampilan seperti desain lama */
+.site-header .navbar-nav .nav-link {
+  padding: 4px 0;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s ease, color .15s ease;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  border-bottom-color: currentColor;
+}
+
+/* Menu halaman yang sedang dibuka: ditebalkan */
+.site-header .navbar-nav .nav-link[aria-current="page"] {
+  font-weight: 700;
+}
+
+/* Tombol hamburger */
+.site-header .navbar-toggler {
+  border-color: var(--line-strong);
+}
+
+.site-header.is-dark .navbar-toggler {
+  border-color: rgba(255, 255, 255, .6);
+}
+
+/* Tablet & mobile (di bawah 992px): menu terbuka rapi di bawah logo */
+@media (max-width: 991.98px) {
+  .site-header.navbar {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .site-header .navbar-collapse {
+    padding: 12px 0 8px;
+  }
+
+  .site-header .navbar-nav .nav-link {
+    display: inline-block;
+  }
+}
+
+/* Footer: hapus margin bawah <address> bawaan Bootstrap */
+.footer-contact {
+  margin-bottom: 0;
+}
+
+/* Kartu kegiatan: Bootstrap punya .card (display:flex) - kembalikan ke blok biasa */
+.card {
+  display: block;
+}
