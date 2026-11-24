@@ -1,18 +1,3 @@
-/* ==========================================================
-   UKM Olahraga Futsal POLIJE - script.js
-   Fitur:
-   1. Header menempel di atas + bayangan saat di-scroll
-   2. Lightbox galeri (klik foto, panah kiri/kanan, Esc)
-   3. Tombol "Kembali ke atas" melayang
-   4. Animasi muncul saat di-scroll (scroll reveal)
-   5. Tahun otomatis di footer
-   6. Penanganan gambar yang gagal dimuat
-   7. Menu mobile: tautan halaman aktif otomatis terlihat
-
-   Cara pakai: tambahkan sebelum </body> di setiap halaman HTML:
-   <script src="script.js" defer></script>
-   (Semua CSS tambahan sudah disisipkan otomatis oleh file ini.)
-   ========================================================== */
 
 (function () {
   "use strict";

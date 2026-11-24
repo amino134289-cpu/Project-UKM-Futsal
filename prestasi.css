@@ -1,32 +1,3 @@
-/* ==========================================================
-   PRESTASI - prestasi.css
-   Dipakai oleh: prestasi.html
-   ----------------------------------------------------------
-   DAFTAR ISI
-   A. UMUM     : Variabel, Reset & Dasar, Aksesibilitas, Tombol,
-                 Navbar, Section, Footer, Preferensi Gerak,
-                 Judul Halaman
-   B. PRESTASI : 1. Daftar Prestasi
-   ----------------------------------------------------------
-   CATATAN:
-   - Bagian "UMUM" sama di keempat file CSS. Kalau diubah di sini,
-     ubah juga di beranda.css, tentang-kami.css, kegiatan-galeri.css.
-   - Bagian "PRESTASI" hanya berlaku untuk prestasi.html.
-   - Ukuran mengikuti desain Figma (lebar 1280px). Aturan @media
-     di bawah tiap bagian = tampilan mobile (<= 640px).
-   ========================================================== */
-
-
-/* ==========================================================
-   >>> BAGIAN UMUM (SAMA DI KEEMPAT FILE CSS) <<<
-   Kalau ada yang diubah di bagian UMUM ini, ubah juga di
-   beranda.css, tentang-kami.css, kegiatan-galeri.css,
-   dan prestasi.css supaya tampilan semua halaman tetap seragam.
-   ========================================================== */
-
-
-/* ===== UMUM: Variabel ===== */
-
 /* Tempat menyimpan warna dan ukuran yang dipakai berulang.
    Ganti nilainya di sini, seluruh halaman ikut berubah. */
 :root {
