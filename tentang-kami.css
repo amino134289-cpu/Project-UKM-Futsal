@@ -544,7 +544,12 @@ a:focus-visible {
     font-size: 16px;
   }
 
-  
+  .page-hero img{
+    display : flex;
+    margin-left: auto;        /* pushes the image all the way right */
+    opacity: 0.5; 
+
+  }
 }
 
 /* ==========================================================
