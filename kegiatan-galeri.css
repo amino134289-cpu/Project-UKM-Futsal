@@ -34,7 +34,7 @@
 }
 
 
-/* ===== UMUM: Reset & Dasar ===== */
+/*Reset dan Dasar*/
 
 /* Semua elemen: lebar/tinggi sudah termasuk padding dan border,
    jadi ukuran lebih mudah dihitung */
@@ -94,7 +94,7 @@ hr {
 }
 
 
-/* ===== UMUM: Aksesibilitas ===== */
+/*Aksebilitas*/
 
 /* Bingkai biru saat link dipilih lewat keyboard (tombol Tab) */
 a:focus-visible {
@@ -141,7 +141,7 @@ a:focus-visible {
 }
 
 
-/* ===== UMUM: Tombol ===== */
+/*Button*/
 
 /* Tombol kuning utama (Gabung, Gabung Sekarang, Selengkapnya, Hubungi Kami) */
 .btn {
@@ -181,7 +181,7 @@ a:focus-visible {
 }
 
 
-/* ===== UMUM: Navbar ===== */
+/*Navbar*/
 
 /* Bar navigasi paling atas: logo di kiri, menu di tengah, tombol Gabung di kanan */
 .site-header {
@@ -354,7 +354,7 @@ a:focus-visible {
 }
 
 
-/* ===== UMUM: Footer ===== */
+/*Footer*/
 
 /* Footer gelap: tiga kolom (nama UKM, menu, kontak) dan baris hak cipta di bawahnya */
 .site-footer {
@@ -471,7 +471,7 @@ a:focus-visible {
 }
 
 
-/* ===== UMUM: Preferensi Gerak ===== */
+/*Preferensi gerak*/
 
 /* Untuk pengguna yang mematikan animasi di perangkatnya:
    matikan animasi halus dan efek tombol naik */
@@ -492,7 +492,7 @@ a:focus-visible {
 }
 
 
-/* ===== UMUM: Judul Halaman (header biru di bawah navbar) ===== */
+/*Judul Halaman*/
 /* Bagian ini sama di Tentang Kami, Kegiatan & Galeri, dan Prestasi.
    Beranda tidak memakainya. */
 

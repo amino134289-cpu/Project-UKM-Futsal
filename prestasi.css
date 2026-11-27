@@ -253,7 +253,7 @@ a:focus-visible {
 
 /* Navbar biru gelap (dipakai di Beranda dan Prestasi): tulisan jadi putih */
 .site-header.is-dark {
-  background: var(--navy);
+  background: var(#ffffff);
   color: #FFFFFF;
 }
 
@@ -503,7 +503,7 @@ a:focus-visible {
   align-items: flex-start;
   gap: 12px;                       /* jarak judul ke kalimat di bawahnya */
   padding: 56px var(--pad-x);      /* ruang atas-bawah sesuai Figma */
-  color: #FFFFFF;
+  color: #ffffff;
   background: var(--navy);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -649,7 +649,7 @@ a:focus-visible {
   flex-wrap: wrap;
   row-gap: 0;
   --bs-navbar-color: var(--ink);
-  --bs-navbar-hover-color: var(--navy);
+  --bs-navbar-hover-color: var(--soft);
   --bs-navbar-active-color: var(--ink);
   --bs-navbar-brand-color: var(--ink);
   --bs-navbar-brand-hover-color: var(--ink);
@@ -657,10 +657,10 @@ a:focus-visible {
 
 /* Navbar gelap (Beranda, Prestasi): teks putih, hover kuning */
 .site-header.is-dark.navbar {
-  --bs-navbar-color: #ffffff;
+  --bs-navbar-color: #000000;
   --bs-navbar-hover-color: var(--yellow);
   --bs-navbar-active-color: #ffffff;
-  --bs-navbar-brand-color: #ffffff;
+  --bs-navbar-brand-color: #000000;
   --bs-navbar-brand-hover-color: #ffffff;
 }
 
